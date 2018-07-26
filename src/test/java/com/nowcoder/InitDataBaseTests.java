@@ -1,11 +1,7 @@
 package com.nowcoder;
 
-import com.nowcoder.dao.LoginTicketDAO;
-import com.nowcoder.dao.NewsDAO;
-import com.nowcoder.dao.UserDAO;
-import com.nowcoder.model.LoginTicket;
-import com.nowcoder.model.News;
-import com.nowcoder.model.User;
+import com.nowcoder.dao.*;
+import com.nowcoder.model.*;
 import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,6 +26,12 @@ public class InitDataBaseTests {
 
 	@Autowired
 	LoginTicketDAO loginTicketDAO;
+
+	@Autowired
+	CommentDAO commentDAO;
+
+	@Autowired
+	MessageDAO messageDAO;
 	@Test
 	public void initData() {
 		Random random = new Random();
@@ -65,6 +67,21 @@ public class InitDataBaseTests {
 			loginTicketDAO.addTicket(loginTicket);
 
 			//Assert.assertEquals("mypass",userDAO.selectById(1).getPassword());
+
+			Comment comment = new Comment();
+			comment.setContent(i + "xxx");
+			comment.setCreatedDate(new Date());
+			comment.setEntityId(i);
+			comment.setEntityType(1);
+			comment.setId(i);
+			comment.setUserId(i + 1);
+			comment.setStatus(1);
+			commentDAO.addComment(comment);
+
+			Message message = new Message();
+			message.setContent("111");
+			message.setCreatedDate(new Date());
+
 		}
 	}
 

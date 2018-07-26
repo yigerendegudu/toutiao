@@ -1,24 +1,21 @@
 package com.nowcoder.controller;
 
-import com.nowcoder.dao.NewsDAO;
 import com.nowcoder.model.News;
-import com.nowcoder.model.User;
 import com.nowcoder.model.ViewObject;
 import com.nowcoder.service.NewsService;
-import com.nowcoder.service.ToutiaoService;
 import com.nowcoder.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -52,8 +49,9 @@ public class HomeController {
         return  "home";
     }
     @RequestMapping(path = {"/user/{userId}/"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String userIndex(Model model,@PathVariable( "userId") int userId) {
+    public String userIndex(Model model,@PathVariable( "userId") int userId , @RequestParam(value = "pop", defaultValue = "0") int pop) {
         model.addAttribute("vos", getNews(userId, 0 ,10));
+        model.addAttribute("pop",pop);
         return  "home";
     }
 }
